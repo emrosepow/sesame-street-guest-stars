@@ -4,6 +4,10 @@ import cloudscraper
 from bs4 import BeautifulSoup
 import time
 
+# NORMAL GUEST STAR LISTINGS: 1-39, 46, 48
+# DIFFERENT GUEST STAR LISTINGS: 40, 41, 42, 43, 44, 45 (see muppet_scraping_v2.py)
+# NO GUEST STAR LISTINGS: 47, 49-54
+
 pages_to_scrape = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 46, 48]
 
 field_names = ['name', 'season', 'wikipedia url', 'wikidata q id', 'imdb id', 'character name']
@@ -49,7 +53,7 @@ with open ('sesame_guest_stars.csv', 'w', newline='') as file:
                     if 'Guest Stars' in dt_element.text:
                         guest_star_links.extend(dd_element.find_all('a'))
             
-            # iterate through individual guest star pages
+            # Iterate through individual guest star pages
             celeb_data = []
             for link_element in guest_star_links:
                 time.sleep(0.25)
@@ -88,9 +92,3 @@ with open ('sesame_guest_stars.csv', 'w', newline='') as file:
                     celeb_data.append(celeb_dict)
 
             csv_file.writerows(celeb_data)
-
-
-# IMPORTANT NUMBERS
-# NO GUEST STAR LISTINGS: 47, 49-54
-# DIFFERENT GUEST STAR LISTINGS: 40, 41, 42, 43, 44, 45
-# HAS: 1-39, 46, 48
